@@ -20,8 +20,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 public class ImagePicker extends CordovaPlugin {
 
@@ -125,9 +126,9 @@ public class ImagePicker extends CordovaPlugin {
         if (resultCode == Activity.RESULT_OK && data != null) {
             int sync = data.getIntExtra("bigdata:synccode", -1);
             final Bundle bigData = ResultIPC.get().getLargeData(sync);
-      
+
             ArrayList<String> fileNames = bigData.getStringArrayList("MULTIPLEFILENAMES");
-    
+
             JSONArray res = new JSONArray(fileNames);
             callbackContext.success(res);
 
@@ -149,7 +150,6 @@ public class ImagePicker extends CordovaPlugin {
      * save/restore APIs to handle the case where the CordovaActivity is killed by the OS
      * before we get the launched Activity's result.
      *
-     * @see http://cordova.apache.org/docs/en/dev/guide/platforms/android/plugin.html#launching-other-activities
      */
     public void onRestoreStateForActivityResult(Bundle state, CallbackContext callbackContext) {
         this.callbackContext = callbackContext;
